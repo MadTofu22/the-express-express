@@ -48,7 +48,11 @@ app.get('/last-train', (req, res) => {
 // this route should return the number of trains in the array
 // NOTE: express doesn't like it when you return numbers
 // instead, return an object like { totalCount: 4 }
+let trainCount = {'totalCount': trains.length};
 
+app.get('/count', (req, res) => {
+    res.send(trainCount);
+});
 
 // Create your `/random` route here
 // when a user visits localhost:5000/random
