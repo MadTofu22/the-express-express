@@ -1,11 +1,17 @@
 // bring express into your project
 // you will need to `npm init` and `npm install express` first
-const express = require(express);
+const express = require('express');
+
+// create your express app
 const app = express();
 const port = 5000;
 
+// express static file serving - public is the folder name where our index.html file is
+app.use(express.static('server/public'));
 
-// create your express app
+app.listen(port, () => {
+    console.log('Up and running on port', port);
+});
 
 // This is your array of trains
 const trains = [
@@ -20,7 +26,9 @@ const trains = [
 // Create your `/train` route here
 // when a user visits localhost:5000/train
 // this route should return the array of trains
-
+app.get('/trains', (req, res) => {
+    res.send(trains);
+});
 
 // Create your `/first-train` route here
 // when a user visits localhost:5000/first-train
