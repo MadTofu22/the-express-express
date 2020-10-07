@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/MadTofu22/the-express-express#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "moment": "^2.29.1"
   }
 }

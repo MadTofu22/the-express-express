@@ -60,6 +60,42 @@ app.get('/random', (req, res) => {
     res.send(trains[getRandomInt(trains.length)]);
 })
 
+// get the current hour and minutes from moment module and check when the next train is
+// trains run every 10 minutes starting at the top of the hour
+//the next train time should display when localhost:5000/next is visited, ie. at 4:35pm the result 4:40pm should be displayed
+let moment = require('../node_modules/moment/moment.js');
+
+app.get('/next', (req, res) => {
+    let currentTime = moment();
+    let nextTrain = getNextTrainTime(currentTime);
+
+    console.log('nextTrain', nextTrain);
+    res.send({'nextTrain': nextTrain});
+    
+});
+
+// get the next train time from the current minutes, returns as a string
+function getNextTrainTime (time) {
+
+    let currentMinutes = time.format('mm');
+    let currentHour = time.format('h');
+
+    // check the number in the ones place to see if its a 0, if it is the next train is due now and the current time can be displayed, if not then return the next train time.
+    if (currentMinutes[1] == 0) {
+        return time.format('h:mma');
+    }
+    else {
+        // check if the current 10s place for the minutes is a 5, if so next train is the next hour
+        if (currentMinutes[0] == 5) {
+            let nextHour = Number(currentHour)+1;
+            return `${nextHour}:00${time.format('a')}`;
+        }
+        else {
+            let nextMinuteTens = Number(currentMinutes[0])+1;
+            return `${currentHour}:${nextMinuteTens}0${time.format('a')}`;
+        }
+    }
+}
 
 // -------- BASE -----//
 
