@@ -1,5 +1,8 @@
 // bring express into your project
 // you will need to `npm init` and `npm install express` first
+const express = require(express);
+const app = express();
+const port = 5000;
 
 
 // create your express app
