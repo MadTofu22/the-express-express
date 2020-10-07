@@ -9,10 +9,6 @@ const port = 5000;
 // express static file serving - public is the folder name where our index.html file is
 app.use(express.static('server/public'));
 
-app.listen(port, () => {
-    console.log('Up and running on port', port);
-});
-
 // This is your array of trains
 const trains = [
     { name: 'Thomas', color: 'Blue' },
@@ -33,12 +29,16 @@ app.get('/trains', (req, res) => {
 // Create your `/first-train` route here
 // when a user visits localhost:5000/first-train
 // this route should return the first train in the array
-
+app.get('/first-train', (req, res) => {
+    res.send(trains[0]);
+});
 
 // Create your `/last-train` route here
 // when a user visits localhost:5000/last-train
 // this route should return the last train in the array
-
+app.get('/last-train', (req, res) => {
+    res.send(trains[trains.length-1]);
+});
 
 
 // -------- STRETCH -----//
@@ -58,3 +58,6 @@ app.get('/trains', (req, res) => {
 // -------- BASE -----//
 
 // Don't forget to start your app by running `.listen()`
+app.listen(port, () => {
+    console.log('Up and running on port', port);
+});
