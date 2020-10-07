@@ -10,12 +10,7 @@ const port = 5000;
 app.use(express.static('server/public'));
 
 // This is your array of trains
-const trains = [
-    { name: 'Thomas', color: 'Blue' },
-    { name: 'Gordon', color: 'Blue' },
-    { name: 'Henry', color: 'Green' },
-    { name: 'James', color: 'Red' }
-];
+let trains = require('./modules/trains.js');
 
 // -------- BASE -----//
 
@@ -57,6 +52,13 @@ app.get('/count', (req, res) => {
 // Create your `/random` route here
 // when a user visits localhost:5000/random
 // this route should return a single train at random
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+app.get('/random', (req, res) => {
+    res.send(trains[getRandomInt(trains.length)]);
+})
 
 
 // -------- BASE -----//
